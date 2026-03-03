@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ltoh.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
+/*   By: finoment <nandonomentsoa@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:12:24 by finoment          #+#    #+#             */
-/*   Updated: 2026/02/18 13:14:30 by finoment         ###   ########.fr       */
+/*   Updated: 2026/02/21 13:55:28 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

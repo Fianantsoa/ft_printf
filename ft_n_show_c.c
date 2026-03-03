@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_n_show_c.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/21 08:04:08 by finoment          #+#    #+#             */
-/*   Updated: 2026/02/21 10:08:46 by finoment         ###   ########.fr       */
+/*   Created: 2026/02/21 10:07:38 by finoment          #+#    #+#             */
+/*   Updated: 2026/02/21 10:07:53 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+int	ft_n_show_c(long n, int base)
+{
+	int	len;
 
-# include <stdlib.h>
-# include <stdarg.h>
-# include <unistd.h>
-# include "libft/libft.h"
-
-int		ft_printf(const char *format, ...);
-void	ft_putunbr_fd(int n, int fd);
-char	*ft_ltoh(unsigned long n);
-char	*ft_strupcase(char *s);
-int		ft_n_show_c(long n, int base);
-
-#endif
+	len = 0;
+	if (n == 0)
+		return (1);
+	if (base == 10 && n < 0)
+	{
+		len++;
+		n = -n;
+	}
+	while (n > 0)
+	{
+		n /= base;
+		len++;
+	}
+	return (len);
+}

@@ -3,35 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: finoment <nandonomentsoa@gmail.com>        +#+  +:+       +#+        */
+/*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 08:01:03 by finoment          #+#    #+#             */
-/*   Updated: 2026/02/21 08:13:15 by finoment         ###   ########.fr       */
+/*   Updated: 2026/02/21 10:07:43 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
-
-static int	ft_n_show_c(long n, int base)
-{
-	int	len;
-
-	len = 0;
-	if (n == 0)
-		return (1);
-	if (base == 10 && n < 0)
-	{
-		len++;
-		n = -n;
-	}
-	while (n > 0)
-	{
-		n /= base;
-		len++;
-	}
-	return (len);
-}
 
 static int	get_print_len(const char c, va_list args)
 {
