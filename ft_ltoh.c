@@ -6,7 +6,7 @@
 /*   By: finoment <nandonomentsoa@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:12:24 by finoment          #+#    #+#             */
-/*   Updated: 2026/02/21 13:55:28 by finoment         ###   ########.fr       */
+/*   Updated: 2026/03/05 12:57:26 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_ltoh(unsigned long n)
 	long	temp;
 
 	len = ft_intlen(n);
-	str = (char *) malloc(len);
+	str = (char *) malloc(sizeof(char) * len + 1);
 	if (!str)
 		return (NULL);
 	i = 0;
