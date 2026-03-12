@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: finoment <nandonomentsoa@gmail.com>        +#+  +:+       +#+        */
+/*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 08:01:03 by finoment          #+#    #+#             */
-/*   Updated: 2026/03/05 12:52:26 by finoment         ###   ########.fr       */
+/*   Updated: 2026/03/12 20:22:23 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-static int	get_print_len(const char c, va_list args)
+static int	ft_get_print_len(const char c, va_list args)
 {
 	char	*str;
 
@@ -39,48 +39,67 @@ static int	get_print_len(const char c, va_list args)
 	return (0);
 }
 
+static void	ft_print_hex(char type, va_list args, size_t *count)
+{
+	char	*str;
+
+	if (type == 'p')
+	{
+		str = ft_ltoh((unsigned long) va_arg(args, void *));
+		if (str)
+			ft_putstr_fd("0x", 1);
+		*count += 2;
+	}
+	if (type == 'x' || type == 'X')
+		str = ft_ltoh(va_arg(args, unsigned int));
+	if (type == 'X')
+		str = ft_strupcase(str);
+	if (!str)
+	{
+		ft_putstr_fd("(nil)", 1);
+		*count += 3;
+	}
+	else
+	{
+		ft_putstr_fd(str, 1);
+		*count += ft_strlen(str);
+	}
+	free(str);
+}
+
 static void	ft_print_arg(char type, va_list args, size_t *count)
 {
 	va_list	copy;
+	char	*str;
 
 	va_copy(copy, args);
 	if (ft_strchr("csdiu%%", type))
-		*count += get_print_len(type, copy);
+		*count += ft_get_print_len(type, copy);
 	va_end(copy);
 	if (type == 'c')
 		ft_putchar_fd((int) va_arg(args, int), 1);
 	if (type == 'd' || type == 'i')
 		ft_putnbr_fd((int) va_arg(args, int), 1);
 	if (type == 's')
-		ft_putstr_fd((char *) va_arg(args, char *), 1);
+	{
+		str = (char *) va_arg(args, char *);
+		if (str)
+			ft_putstr_fd(str, 1);
+		else
+			ft_putstr_fd("(null)", 1);
+	}
 	if (type == '%')
 		ft_putchar_fd('%', 1);
 	if (type == 'u')
 		ft_putunbr_fd(((unsigned int) va_arg(args, unsigned int)), 1);
+	if (type == 'p' || type == 'x' || type == 'X')
+		ft_print_hex(type, args, count);
 }
 
-static void	ft_print_hex(char type, va_list args, size_t *count)
+static void	ft_print_and_count(char chr, size_t *count)
 {
-	va_list	copy;
-	char	*str;
-
-	va_copy(copy, args);
-	if (ft_strchr("pxX", type))
-		*count += get_print_len(type, copy);
-	va_end(copy);
-	if (type == 'p')
-	{
-		ft_putstr_fd("0x", 1);
-		str = ft_ltoh((unsigned long) va_arg(args, void *));
-		ft_putstr_fd(str, 1);
-		free(str);
-	}
-	str = ft_ltoh(va_arg(args, unsigned int));
-	if (type == 'x')
-		ft_putstr_fd(str, 1);
-	if (type == 'X')
-		ft_putstr_fd(ft_strupcase(str), 1);
-	free(str);
+	ft_putchar_fd(chr, 1);
+	*count += 1;
 }
 
 int	ft_printf(const char *format, ...)
@@ -95,16 +114,16 @@ int	ft_printf(const char *format, ...)
 	while (*format != '\0')
 	{
 		if (*format != '%')
-		{
-			ft_putchar_fd(*format, 1);
-			count++;
-		}
+			ft_print_and_count(*format, &count);
 		else
 		{
-			if (ft_strchr("csdiu%%", *format++))
+			if (ft_strchr("csdiupxX%%", *format++))
 				ft_print_arg(*format, args, &count);
-			if (ft_strchr("pxX", *format))
-				ft_print_hex(*format, args, &count);
+			if (!ft_strchr("csdiupxX%%", *format))
+			{
+				ft_putchar_fd('%', 1);
+				ft_print_and_count(*format, &count);
+			}
 		}
 		format++;
 	}

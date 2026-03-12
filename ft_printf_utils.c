@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ltoh.c                                          :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: finoment <nandonomentsoa@gmail.com>        +#+  +:+       +#+        */
+/*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/18 13:12:24 by finoment          #+#    #+#             */
-/*   Updated: 2026/03/05 12:57:26 by finoment         ###   ########.fr       */
+/*   Created: 2026/03/12 20:25:54 by finoment          #+#    #+#             */
+/*   Updated: 2026/03/12 20:27:22 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft/libft.h"
 
 static size_t	ft_intlen(long n)
 {
@@ -35,7 +36,7 @@ char	*ft_ltoh(unsigned long n)
 
 	len = ft_intlen(n);
 	str = (char *) malloc(sizeof(char) * len + 1);
-	if (!str)
+	if (!str || !n)
 		return (NULL);
 	i = 0;
 	while (i < len)
@@ -52,4 +53,48 @@ char	*ft_ltoh(unsigned long n)
 	}
 	str[len] = '\0';
 	return (str);
+}
+
+int	ft_n_show_c(long n, int base)
+{
+	int	len;
+
+	len = 0;
+	if (n == 0)
+		return (1);
+	if (base == 10 && n < 0)
+	{
+		len++;
+		n = -n;
+	}
+	while (n > 0)
+	{
+		n /= base;
+		len++;
+	}
+	return (len);
+}
+
+void	ft_putunbr_fd(unsigned int n, int fd)
+{
+	if (n > 9)
+	{
+		ft_putunbr_fd(n / 10, fd);
+		ft_putchar_fd((n % 10 + '0'), fd);
+	}
+	else
+		ft_putchar_fd((n % 10 + '0'), fd);
+}
+
+char	*ft_strupcase(char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		s[i] = ft_toupper(s[i]);
+		i++;
+	}
+	return (s);
 }
