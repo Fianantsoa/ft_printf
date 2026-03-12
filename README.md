@@ -1,3 +1,5 @@
+This project consists of implementing a custom version of printf in C, named ft_printf.
+The goal of the project is to understand variadic functions, memory management, type promotion, and formatted output in C.
 *This project has been created as part of the 42 curriculum by finoment.*
 
 ## Description
