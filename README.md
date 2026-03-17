@@ -52,7 +52,7 @@ Include the header in your C files :
 
 Compile your project with : 
 ```bash
-cc -Wall -Wextra -Werror main.c -L. -lftprintf libft/libft.a -o main
+cc -Wall -Wextra -Werror main.c -L. -lftprintf -o main
 ```
 
 This command enables warnings and treats them as errors, compiles `main.c`, and links it with the `libftprintf` library in the current directory and the `libft` library located in libft/libft.a.
@@ -67,12 +67,18 @@ int main(void) {
     return 0;
 }
 ```
+
+Execution
+```bash
+./main
+```
+
 ## Resources
 
 ### Classic References 
 - Linux manual pages (man printf, free, write, malloc)
-- W3Schools — C programming tutorials
-- cppreference.com 
+- W3Schools — C programming tutorials https://www.w3schools.com/c/
+- Tutorialspoint C https://www.tutorialspoint.com/cprogramming/index.htm
 
 ### AI Usage
 AI was used as a learning and guidance tool to better understand specific concepts of the project, including:

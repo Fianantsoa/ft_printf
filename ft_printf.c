@@ -6,12 +6,11 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 08:01:03 by finoment          #+#    #+#             */
-/*   Updated: 2026/03/12 20:22:23 by finoment         ###   ########.fr       */
+/*   Updated: 2026/03/17 16:51:10 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
 
 static int	ft_get_print_len(const char c, va_list args)
 {

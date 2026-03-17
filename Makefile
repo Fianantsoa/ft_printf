@@ -13,6 +13,7 @@ $(LIBFT):
 	make -C libft
 
 $(NAME): $(OBJ) $(LIBFT)
+	cp $(LIBFT) $(NAME)
 	ar rcs $(NAME) $(OBJ)
 
 %.o: %.c

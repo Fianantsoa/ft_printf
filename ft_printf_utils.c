@@ -6,18 +6,19 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 20:25:54 by finoment          #+#    #+#             */
-/*   Updated: 2026/03/12 20:27:22 by finoment         ###   ########.fr       */
+/*   Updated: 2026/03/17 17:13:56 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
 
 static size_t	ft_intlen(long n)
 {
 	size_t	len;
 
 	len = 0;
+	if (n == 0)
+		return (1);
 	while (n != 0)
 	{
 		n /= 16;
@@ -36,7 +37,7 @@ char	*ft_ltoh(unsigned long n)
 
 	len = ft_intlen(n);
 	str = (char *) malloc(sizeof(char) * len + 1);
-	if (!str || !n)
+	if (!str)
 		return (NULL);
 	i = 0;
 	while (i < len)
