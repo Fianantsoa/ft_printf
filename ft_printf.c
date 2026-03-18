@@ -6,7 +6,7 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 08:01:03 by finoment          #+#    #+#             */
-/*   Updated: 2026/03/17 16:51:10 by finoment         ###   ########.fr       */
+/*   Updated: 2026/03/18 11:55:31 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,24 @@ static int	ft_get_print_len(const char c, va_list args)
 	return (0);
 }
 
+static char	*ft_flag_pointer(va_list args)
+{
+	unsigned long	pointer;
+
+	pointer = (unsigned long) va_arg(args, void *);
+	if (pointer == 0)
+		return (NULL);
+	else
+		return (ft_ltoh(pointer));
+}
+
 static void	ft_print_hex(char type, va_list args, size_t *count)
 {
 	char	*str;
 
 	if (type == 'p')
 	{
-		str = ft_ltoh((unsigned long) va_arg(args, void *));
+		str = ft_flag_pointer(args);
 		if (str)
 			ft_putstr_fd("0x", 1);
 		*count += 2;
@@ -56,12 +67,12 @@ static void	ft_print_hex(char type, va_list args, size_t *count)
 	if (!str)
 	{
 		ft_putstr_fd("(nil)", 1);
-		*count += 3;
+		*count += 2;
 	}
 	else
 	{
 		ft_putstr_fd(str, 1);
-		*count += ft_strlen(str);
+		*count += ft_strlen(str) - 1;
 	}
 	free(str);
 }
@@ -73,7 +84,7 @@ static void	ft_print_arg(char type, va_list args, size_t *count)
 
 	va_copy(copy, args);
 	if (ft_strchr("csdiu%%", type))
-		*count += ft_get_print_len(type, copy);
+		*count += ft_get_print_len(type, copy) - 1;
 	va_end(copy);
 	if (type == 'c')
 		ft_putchar_fd((int) va_arg(args, int), 1);
@@ -95,11 +106,11 @@ static void	ft_print_arg(char type, va_list args, size_t *count)
 		ft_print_hex(type, args, count);
 }
 
-static void	ft_print_and_count(char chr, size_t *count)
-{
-	ft_putchar_fd(chr, 1);
-	*count += 1;
-}
+// static void	ft_print_and_count(char chr, size_t *count)
+// {
+// 	ft_putchar_fd(chr, 1);
+// 	*count += 1;
+// }
 
 int	ft_printf(const char *format, ...)
 {
@@ -110,10 +121,10 @@ int	ft_printf(const char *format, ...)
 		return (-1);
 	count = 0;
 	va_start(args, format);
-	while (*format != '\0')
+	while (*format != '\0' && ++count != 0)
 	{
 		if (*format != '%')
-			ft_print_and_count(*format, &count);
+			ft_putchar_fd(*format, 1);
 		else
 		{
 			if (ft_strchr("csdiupxX%%", *format++))
@@ -121,7 +132,7 @@ int	ft_printf(const char *format, ...)
 			if (!ft_strchr("csdiupxX%%", *format))
 			{
 				ft_putchar_fd('%', 1);
-				ft_print_and_count(*format, &count);
+				ft_putchar_fd(*format, 1);
 			}
 		}
 		format++;

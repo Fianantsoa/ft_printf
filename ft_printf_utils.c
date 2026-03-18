@@ -6,13 +6,13 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 20:25:54 by finoment          #+#    #+#             */
-/*   Updated: 2026/03/17 17:13:56 by finoment         ###   ########.fr       */
+/*   Updated: 2026/03/18 11:37:39 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static size_t	ft_intlen(long n)
+size_t	ft_intlen(long n)
 {
 	size_t	len;
 
