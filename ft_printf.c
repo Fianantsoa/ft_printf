@@ -6,7 +6,7 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 08:01:03 by finoment          #+#    #+#             */
-/*   Updated: 2026/03/18 11:55:31 by finoment         ###   ########.fr       */
+/*   Updated: 2026/04/13 13:32:48 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,6 @@ static void	ft_print_arg(char type, va_list args, size_t *count)
 		ft_print_hex(type, args, count);
 }
 
-// static void	ft_print_and_count(char chr, size_t *count)
-// {
-// 	ft_putchar_fd(chr, 1);
-// 	*count += 1;
-// }
-
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
@@ -129,7 +123,7 @@ int	ft_printf(const char *format, ...)
 		{
 			if (ft_strchr("csdiupxX%%", *format++))
 				ft_print_arg(*format, args, &count);
-			if (!ft_strchr("csdiupxX%%", *format))
+			if (!ft_strchr("csdiupxX%%", *format) && count++)
 			{
 				ft_putchar_fd('%', 1);
 				ft_putchar_fd(*format, 1);

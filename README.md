@@ -18,12 +18,6 @@ The project allows a deeper understanding of:
 ### Installation
 First, clone the repository:
 ```bash
-git clone git@vogsphere.42antananarivo.mg:vogsphere/intra-uuid-1fbf5c08-938c-4748-acd7-499fdf585632-7267754-finoment libftprintf
-cd libftprintf
-```
-Note: The repository link may change depending on the project or user.
-In general, the command follows this format:
-```bash
 git clone <repository_url> <folder_name>
 cd <folder_name>
 ```

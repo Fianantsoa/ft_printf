@@ -6,20 +6,18 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 20:25:54 by finoment          #+#    #+#             */
-/*   Updated: 2026/03/18 11:37:39 by finoment         ###   ########.fr       */
+/*   Updated: 2026/04/13 13:44:56 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	ft_intlen(long n)
+size_t	ft_hexlen(unsigned long n)
 {
 	size_t	len;
 
-	len = 0;
-	if (n == 0)
-		return (1);
-	while (n != 0)
+	len = 1;
+	while (n >= 16)
 	{
 		n /= 16;
 		len++;
@@ -29,30 +27,21 @@ size_t	ft_intlen(long n)
 
 char	*ft_ltoh(unsigned long n)
 {
-	char	*str;
-	size_t	len;
-	size_t	i;
-	size_t	div;
-	long	temp;
+	char			*str;
+	char			*base;
+	size_t			len;
 
-	len = ft_intlen(n);
-	str = (char *) malloc(sizeof(char) * len + 1);
+	base = "0123456789abcdef";
+	len = ft_hexlen(n);
+	str = malloc(len + 1);
 	if (!str)
 		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		temp = n;
-		div = len - i - 1;
-		while (div--)
-			temp /= 16;
-		if (temp % 16 >= 0 && temp % 16 <= 10)
-			str[i] = (temp % 16) + '0';
-		if (temp % 16 >= 10 && temp % 16 <= 15)
-			str[i] = 'a' + ((temp % 16) - 10);
-		i++;
-	}
 	str[len] = '\0';
+	while (len--)
+	{
+		str[len] = base[n % 16];
+		n /= 16;
+	}
 	return (str);
 }
 
